@@ -21,6 +21,11 @@
   "homepage": "https://github.com/dezitter/tmdb-v3#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "nock": "^9.0.2"
+  },
+  "dependencies": {
+    "request": "^2.79.0",
+    "request-promise-native": "^1.0.3"
   }
 }
