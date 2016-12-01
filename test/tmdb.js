@@ -48,4 +48,24 @@ describe('Tmdb', () => {
                 .then(response => expect(response).to.be.an('object'));
         });
     });
+
+    describe('#discoverMovie()', () => {
+        const tmdb = new Tmdb({ apiKey });
+
+        beforeEach(() => {
+            apiMock.get('/discover/movie')
+                   .query({ api_key: apiKey })
+                   .reply(200, '{ "page": 1, "results": []}');
+        });
+
+        it('returns a thenable', function() {
+            expect(tmdb.discoverMovie())
+                .to.respondTo('then');
+        });
+
+        it('parses the response', function() {
+            return tmdb.discoverMovie()
+                .then(response => expect(response).to.be.an('object'));
+        });
+    });
 });
