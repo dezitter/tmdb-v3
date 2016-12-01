@@ -38,11 +38,6 @@ describe('Tmdb', () => {
             });
         });
 
-        it('returns a thenable', function() {
-            expect(tmdb.searchMovie('foo'))
-                .to.respondTo('then');
-        });
-
         it('parses the response', function() {
             return tmdb.searchMovie('foo')
                 .then(response => expect(response).to.be.an('object'));
@@ -56,11 +51,6 @@ describe('Tmdb', () => {
             apiMock.get('/discover/movie')
                    .query({ api_key: apiKey })
                    .reply(200, '{ "page": 1, "results": []}');
-        });
-
-        it('returns a thenable', function() {
-            expect(tmdb.discoverMovie())
-                .to.respondTo('then');
         });
 
         it('parses the response', function() {
