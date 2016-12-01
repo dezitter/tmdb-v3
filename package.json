@@ -1,0 +1,22 @@
+{
+  "name": "tmdb-v3",
+  "version": "1.0.0",
+  "description": "Nodejs wrapper around the TMDb API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dezitter/tmdb-v3.git"
+  },
+  "keywords": [
+    "tmdb"
+  ],
+  "author": "Laurent Dezitter <laurent.dezitter@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dezitter/tmdb-v3/issues"
+  },
+  "homepage": "https://github.com/dezitter/tmdb-v3#readme"
+}
