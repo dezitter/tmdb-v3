@@ -58,4 +58,40 @@ describe('Tmdb', () => {
                 .then(response => expect(response).to.be.an('object'));
         });
     });
+
+    describe('#find()', () => {
+        const tmdb = new Tmdb({ apiKey });
+
+        beforeEach(() => {
+            apiMock.get('/find/42')
+                   .query({ api_key: apiKey })
+                   .reply(200, '{ "movie_results": [] }');
+        });
+
+        context('when no external id is given', () => {
+            it('throws an error', function() {
+                expect(() => tmdb.find())
+                    .to.throw('Missing external id');
+            });
+        });
+
+        context('when no external source is given', () => {
+            it('throws an error', function() {
+                expect(() => tmdb.find(42))
+                    .to.throw('Missing external source');
+            });
+        });
+
+        context('when an invalid external source is given', () => {
+            it('throws an error', function() {
+                expect(() => tmdb.find(42, 'foo_id'))
+                    .to.throw('Unknown external source');
+            });
+        });
+
+        it('parses the response', function() {
+            return tmdb.find(42, 'imdb_id')
+                .then(response => expect(response).to.be.an('object'));
+        });
+    });
 });
