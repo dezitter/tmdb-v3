@@ -4,10 +4,26 @@ Nodejs wrapper around the [TMDb API](https://www.themoviedb.org/documentation/ap
 
 ## Install
 
-    $ git clone https://github.com/dezitter/tmdb-v3
-    $ cd tmdb-v3/
-    $ npm install
+    $ npm install tmdb-v3
+
+## How to use
+
+
+```javascript
+const Tmdb = require('tmdb-v3');
+const tmdb = new Tmdb({ apiKey: 'YOUR_API_KEY' });
+
+tmdb.searchMovie('Star Wars')
+    .then(response => {
+        console.log(response.results.length);
+        // => 20
+    });
+```
 
 ## Run tests
 
+    $ git clone https://github.com/dezitter/tmdb-v3
+    $ cd tmdb-v3/
+    $ npm install
     $ npm test
+
