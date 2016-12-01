@@ -4,7 +4,7 @@
   "description": "Nodejs wrapper around the TMDb API.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/dezitter/tmdb-v3/issues"
   },
-  "homepage": "https://github.com/dezitter/tmdb-v3#readme"
+  "homepage": "https://github.com/dezitter/tmdb-v3#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }
