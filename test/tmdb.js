@@ -31,7 +31,7 @@ describe('Tmdb', () => {
         context('when no query is given', () => {
             it('throws an error', function() {
                 expect(() => tmdb.searchMovie())
-                    .to.throw('Missing query');
+                    .to.throw('Missing text query');
             });
         });
 
