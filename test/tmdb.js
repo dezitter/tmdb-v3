@@ -39,11 +39,6 @@ describe('Tmdb', () => {
             return tmdb.searchMovie('foo')
                 .then(() => expect(scope.isDone()).to.be.true);
         });
-
-        it('parses the response', function() {
-            return tmdb.searchMovie('foo')
-                .then(response => expect(response).to.be.an('object'));
-        });
     });
 
     describe('#discoverMovie()', () => {
@@ -59,11 +54,6 @@ describe('Tmdb', () => {
         it('hits the correct endpoint', () => {
             return tmdb.discoverMovie()
                 .then(() => expect(scope.isDone()).to.be.true);
-        });
-
-        it('parses the response', function() {
-            return tmdb.discoverMovie()
-                .then(response => expect(response).to.be.an('object'));
         });
     });
 
@@ -101,11 +91,6 @@ describe('Tmdb', () => {
         it('hits the correct endpoint', () => {
             return tmdb.find(42, 'imdb_id')
                 .then(() => expect(scope.isDone()).to.be.true);
-        });
-
-        it('parses the response', function() {
-            return tmdb.find(42, 'imdb_id')
-                .then(response => expect(response).to.be.an('object'));
         });
     });
 });

@@ -15,8 +15,8 @@ const tmdb = new Tmdb({ apiKey: 'YOUR_API_KEY' });
 
 tmdb.searchMovie('Star Wars')
     .then(response => {
-        console.log(response.results.length);
-        // => 20
+        console.log(response.body);
+        // => '{"page":1,"results":[...],...}"
     });
 ```
 
