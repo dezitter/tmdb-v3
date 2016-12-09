@@ -9,6 +9,13 @@ nock.disableNetConnect();
 describe('Tmdb', () => {
     const apiKey = 'XXX';
 
+    function mockQuery(scope, endpoint, query={}) {
+        scope.get(endpoint)
+            .query(query)
+            .query({ api_key: apiKey })
+            .reply(200, '{ "page": 1, "results": []}');
+    }
+
     describe('#constructor()', () => {
         context('when no api key is given', () => {
             it('throws an error', function() {
@@ -22,12 +29,6 @@ describe('Tmdb', () => {
         const tmdb = new Tmdb({ apiKey });
         const scope = nock('https://api.themoviedb.org/3');
 
-        beforeEach(() => {
-            scope.get('/search/movie')
-                 .query({ api_key: apiKey, query: 'foo' })
-                 .reply(200, '{ "page": 1, "results": []}');
-        });
-
         context('when no query is given', () => {
             it('throws an error', function() {
                 expect(() => tmdb.searchMovie())
@@ -36,7 +37,16 @@ describe('Tmdb', () => {
         });
 
         it('hits the correct endpoint', () => {
+            mockQuery(scope, '/search/movie', { query: 'foo' });
+
             return tmdb.searchMovie('foo')
+                .then(() => expect(scope.isDone()).to.be.true);
+        });
+
+        it('passes options as additional query parameters', () => {
+            mockQuery(scope, '/search/movie', { query: 'foo', year: 2016 });
+
+            return tmdb.searchMovie('foo', { year: 2016 })
                 .then(() => expect(scope.isDone()).to.be.true);
         });
     });
@@ -45,13 +55,9 @@ describe('Tmdb', () => {
         const tmdb = new Tmdb({ apiKey });
         const scope = nock('https://api.themoviedb.org/3');
 
-        beforeEach(() => {
-            scope.get('/discover/movie')
-                 .query({ api_key: apiKey })
-                 .reply(200, '{ "page": 1, "results": []}');
-        });
-
         it('hits the correct endpoint', () => {
+            mockQuery(scope, '/discover/movie');
+
             return tmdb.discoverMovie()
                 .then(() => expect(scope.isDone()).to.be.true);
         });
@@ -60,12 +66,6 @@ describe('Tmdb', () => {
     describe('#find()', () => {
         const tmdb = new Tmdb({ apiKey });
         const scope = nock('https://api.themoviedb.org/3');
-
-        beforeEach(() => {
-            scope.get('/find/42')
-                 .query({ api_key: apiKey })
-                 .reply(200, '{ "movie_results": [] }');
-        });
 
         context('when no external id is given', () => {
             it('throws an error', function() {
@@ -89,6 +89,8 @@ describe('Tmdb', () => {
         });
 
         it('hits the correct endpoint', () => {
+            mockQuery(scope, '/find/42');
+
             return tmdb.find(42, 'imdb_id')
                 .then(() => expect(scope.isDone()).to.be.true);
         });
