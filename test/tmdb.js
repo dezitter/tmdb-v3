@@ -81,13 +81,6 @@ describe('Tmdb', () => {
             });
         });
 
-        context('when an invalid external source is given', () => {
-            it('throws an error', function() {
-                expect(() => tmdb.find(42, 'foo_id'))
-                    .to.throw('Unknown external source');
-            });
-        });
-
         it('hits the correct endpoint', () => {
             mockQuery(scope, '/find/42', { external_source: 'imdb_id' });
 
