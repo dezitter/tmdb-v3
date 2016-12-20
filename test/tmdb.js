@@ -89,7 +89,7 @@ describe('Tmdb', () => {
         });
 
         it('hits the correct endpoint', () => {
-            mockQuery(scope, '/find/42');
+            mockQuery(scope, '/find/42', { external_source: 'imdb_id' });
 
             return tmdb.find(42, 'imdb_id')
                 .then(() => expect(scope.isDone()).to.be.true);
