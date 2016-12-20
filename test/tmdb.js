@@ -1,4 +1,4 @@
-/* global beforeEach, context, describe, it */
+/* global  context, describe, it */
 
 const Tmdb = require('../lib');
 const expect = require('chai').expect;
@@ -92,6 +92,25 @@ describe('Tmdb', () => {
             mockQuery(scope, '/find/42');
 
             return tmdb.find(42, 'imdb_id')
+                .then(() => expect(scope.isDone()).to.be.true);
+        });
+    });
+
+    describe('#movieDetails()', function() {
+        const tmdb = new Tmdb({ apiKey });
+        const scope = nock('https://api.themoviedb.org/3');
+
+        context('when no id is given', () => {
+            it('throws an error', function() {
+                expect(() => tmdb.movieDetails())
+                    .to.throw('Missing id');
+            });
+        });
+
+        it('hits the correct endpoint', () => {
+            mockQuery(scope, '/movie/42');
+
+            return tmdb.movieDetails(42)
                 .then(() => expect(scope.isDone()).to.be.true);
         });
     });
